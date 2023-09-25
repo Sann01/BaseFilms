@@ -8,17 +8,21 @@ nav {
   padding-top: 20px;
   padding-bottom: 30px;
 }
-nav h1 {
+h1 {
   text-align: center;
   font-family: 'Designer', sans-serif;
-  color: #ffffff;
 }
-
-.card{
+.title{
+  color: white;
+}
+.filme{
   background-color: blueviolet;
-  color: #212121;
+  
 }
-
+.coisa{
+  border:white 1px solid;
+  padding: 5px;
+}
 .container {
   text-align: center;
   color: #ffffff;
@@ -28,7 +32,7 @@ nav h1 {
   margin-top: 5px;
   padding: 0.7rem 3rem;
   border: none;
-  border-radius: 15px;
+  border-radius: 10px;
   color: #212121;
   background-color: #ffffff;
   font-weight: 1000;
@@ -43,6 +47,8 @@ nav h1 {
 .img_movie {
   width: 20%;
   margin: 0 40%;
+  border-radius: 10px;
+  border:white 2px solid;
 }
 
 .movie-desc {

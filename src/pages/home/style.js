@@ -9,10 +9,11 @@ font-family: 'Designer', sans-serif;
         background-color:#565656;
     }
     .navbar{
-        background-color:#939;
+        background-color:blueviolet;
     }
     img{
         width: 50px;
+        border:solid 1px white;
     }
 `;
 
@@ -57,7 +58,7 @@ export const Btn = styled.button`
     border: none;
     border-radius: 10px;
     color: #202020;;
-    background-color: #939;
+    background-color: blueviolet;
     font-weight: 1000;
     font-size: 12 px;
     cursor: pointer;

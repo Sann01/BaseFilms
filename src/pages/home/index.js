@@ -8,6 +8,8 @@ function Home() {
     const imagePath = "https://image.tmdb.org/t/p/w500";
 
     const [movies, setMovies] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [searchResults, setSearchResults] = useState([]);
     const KEY = process.env.REACT_APP_KEY;
     useEffect(() => {
         fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${KEY}&language=pt-BR`)
@@ -17,33 +19,47 @@ function Home() {
             });
     }, [KEY]);
 
+    const handleSearch = (e) => {
+        e.preventDefault();
+        fetch(`https://api.themoviedb.org/3/search/movie?api_key=${KEY}&query=${searchQuery}&language=pt-BR`)
+            .then((response) => response.json())
+            .then((data) => {
+                setSearchResults(data.results);
+            });
+    };
     return (
         <Container>
-            <nav class="navbar">
-                <div class="container-fluid">
-                    <a class="navbar-brand"><img src={logo} alt="Logo" title=""/>BaseFilms</a>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                            <button class="btn btn-outline" type="submit"> 🔎</button>
+            <nav className="navbar header">
+                <div className="container-fluid">
+                    <a className="navbar-brand">BaseFilms</a>
+                    <form className="d-flex" onSubmit={handleSearch}>
+                        <input
+                            className="form-control me-2" type="search" placeholder="Search"
+                            aria-label="Search" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+                        <button className="btn btn-outline" type="submit">🔎</button>
                     </form>
                 </div>
             </nav>
             <MovieList>
-                {movies.map((movie) => {
-                    return (
+                {searchResults.length > 0
+                    ? searchResults.map((movie) => (
                         <Movie key={movie.id}>
-                            <img
-                                src={`${imagePath}${movie.poster_path}`}
-                                alt="{movie.title}"
-                            />
+                            <img src={`${imagePath}${movie.poster_path}`} alt={movie.title} />
                             <span>{movie.title}</span>
-
                             <Link to={`/${movie.id}`}>
                                 <Btn>Detalhes</Btn>
                             </Link>
                         </Movie>
-                    );
-                })}
+                    ))
+                    : movies.map((movie) => (
+                        <Movie key={movie.id}>
+                            <img src={`${imagePath}${movie.poster_path}`} alt={movie.title} />
+                            <span>{movie.title}</span>
+                            <Link to={`/${movie.id}`}>
+                                <Btn>Detalhes</Btn>
+                            </Link>
+                        </Movie>
+                    ))}
             </MovieList>
         </Container>
     );
